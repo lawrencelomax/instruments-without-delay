@@ -4,18 +4,21 @@ set -e
 cd `dirname $0`
 
 BUILD_OUTPUT_DIR=$(echo `pwd`/build)
+DESTINATION="platform=iOS Simulator,name=iPhone 6,OS=latest"
 
 xcodebuild \
   -workspace instruments-without-delay.xcworkspace \
   -scheme ios-dylibs \
   -configuration Release \
   -sdk iphonesimulator \
+  -destination "$DESTINATION" \
   CONFIGURATION_BUILD_DIR=$BUILD_OUTPUT_DIR
 
 xcodebuild \
   -workspace instruments-without-delay.xcworkspace \
   -scheme instruments-without-delay \
   -configuration Release \
+  -destination "$DESTINATION" \
   CONFIGURATION_BUILD_DIR=$BUILD_OUTPUT_DIR
 
 cp instruments $BUILD_OUTPUT_DIR/instruments
